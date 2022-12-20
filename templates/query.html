@@ -4,15 +4,40 @@
 <title>WatchTopia</title>
 {% endblock %}
 
-
 {% block body %}
-
+<body class="quer-b">
+<div class="nav">
+  <input type="checkbox" id="nav-check">
+  <div class="nav-header">
+    <div class="nav-title">
+      WatchTopia
+    </div>
+  </div>
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+  
+  <div class="nav-links">
+    <a href="{{ url_for('hrefhome') }}">Home</a>
+    <a href="{{ url_for('hrefaboutus') }}">About Us</a>
+    <a href="{{ url_for('hreftool') }}">Tool</a>
+    <a href="{{ url_for('hrefplatforms') }}">Platforms</a>
+    <a href="{{ url_for('hrefcontact') }}">Contact Us</a>
+  </div>
 <div class="slidecontainer">
     <form action="/" method="post">
         <!-- Dropdown 1 -->
-        <h1>Pick your top 3 favourite genres</h1>
-        <label for="dropdown1">1st Genre:</label>
+        
+        <div></div>
+        <div class="drop-div">
+        <h2>Pick your top 3 favourite genres</h2>
+        <label class="drop-label" for="dropdown1">1st Genre:</label>
         <select name="dropdown1">
+        <div class="opt">
         <option value="Action and Adventure">Action and Adventure</option>
         <option value="Comedy">Comedy</option>
         <option value="Documentary">Documentary</option>
@@ -30,10 +55,11 @@
         <option value="Mystery and Thriller">Mystery and Thriller</option>
         <option value="Science-Fiction">Science-Fiction</option>
         <option value="War and Military">War and Military</option>
-        </select>
+      </div>  
+      </select>
 
         <!-- Dropdown 2 -->
-        <label for="dropdown2">2nd Genre:</label>
+        <label class="drop-label" for="dropdown2">2nd Genre:</label>
         <select name="dropdown2">
             <option value="Action and Adventure">Action and Adventure</option>
             <option value="Comedy">Comedy</option>
@@ -55,7 +81,7 @@
             </select>
 
         <!-- Dropdown 3 -->
-        <label for="dropdown3">3rd Genre:</label>
+        <label class="drop-label" for="dropdown3">3rd Genre:</label>
         <select name="dropdown3">
             <option value="Action and Adventure">Action and Adventure</option>
             <option value="Comedy">Comedy</option>
@@ -75,24 +101,31 @@
             <option value="Science-Fiction">Science-Fiction</option>
             <option value="War and Military">War and Military</option>
             </select>
+            <input class="reco" type="submit" value="Recommend!">
+        </div>
+        <div class="range-div">
+        <br>
+        <h2>IMDB Score Importance</h2>
+        <Input class="range" type="range" name="imdb" value="5" step="1" min="0" max="10" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        <span id="rangeValue">5</span>
+        <br>
+        <h2>Price Importance</h2>
+        <Input class="range" type="range" name="price" value="5" step="1" min="0" max="10" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        <span id="rangeValue">5</span>
+        <br>
+        <h2>Content Amount Importance</h2>
+        <Input class="range" type="range" name="content_amount" value="5" step="1" min="0" max="10" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        <span id="rangeValue">5</span>
+        <br>
+        <h2>Show Importance</h2>
+        <Input class="range" type="range" name="show" value="5" step="1" min="0" max="10" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        <span id="rangeValue">5</span>>
+        <br>
+        <h2>Movie Importance</h2>
+        <Input class="range" type="range" name="movie" value="5" step="1" min="0" max="10" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+        <span id="rangeValue">5</span>
+        <br>
         
-        <br>
-        <h1>IMDB Score Importance</h1>
-        <input type="range" name="imdb" min="0" max="10" step="1" value="5">
-        <br>
-        <h1>Price Importance</h1>
-        <input type="range" name="price" min="0" max="10" step="1" value="5">
-        <br>
-        <h1>Content Amount Importance</h1>
-        <input type="range" name="content_amount" min="0" max="10" step="1" value="5">
-        <br>
-        <h1>Show Importance</h1>
-        <input type="range" name="show" min="0" max="10" step="1" value="5">
-        <br>
-        <h1>Movie Importance</h1>
-        <input type="range" name="movie" min="0" max="10" step="1" value="5">
-        <br>
-        <input type="submit" value="Recommend For Me!">
       </form>
     
       <form action="/logout" method="POST">
@@ -102,7 +135,15 @@
       <form action="/return" method="POST">
         <button type="submit" name="Return">Return To Main Page</button>
       </form>
+    </div>
+    </div>
+    <script type="text/javascript">
+      function rangeSlide(value) {
+          document.getElementById('rangeValue').innerHTML = value;
+      }
+    </script>
 </div>
 
-
+</div>
+</body>
 {% endblock %}
