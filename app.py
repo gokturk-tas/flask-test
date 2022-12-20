@@ -276,7 +276,8 @@ def index():
         bestNumberOfShowScore = str(bestProvider.calculatedNumberOfShowScore)
         bestGenreScore = str(bestProvider.calculatedGenreScore)
         bestTotalScore = str(bestProvider.totalScore)
-        
+        firstImage=str(url_for('static', filename= 'images/'+bestProvider.name+'.png'))
+
         secondName = getLongNameOfStreamingPlatform(secondBestProvider.name)
         secondImdbScore = str(secondBestProvider.calculatedImdbScore)
         secondNumberOfContentScore = str(secondBestProvider.calculatedNumberOfContentScore)
@@ -284,6 +285,7 @@ def index():
         secondNumberOfShowScore = str(secondBestProvider.calculatedNumberOfShowScore)
         secondGenreScore = str(secondBestProvider.calculatedGenreScore)
         secondTotalScore = str(secondBestProvider.totalScore)
+        secondImage=str(url_for('static', filename= 'images/'+secondBestProvider.name+'.png'))
 
         thirdName = getLongNameOfStreamingPlatform(thirdBestProvider.name)
         thirdImdbScore = str(thirdBestProvider.calculatedImdbScore)
@@ -292,6 +294,7 @@ def index():
         thirdNumberOfShowScore = str(thirdBestProvider.calculatedNumberOfShowScore)
         thirdGenreScore = str(thirdBestProvider.calculatedGenreScore)
         thirdTotalScore = str(thirdBestProvider.totalScore)
+        thirdImage=str(url_for('static', filename= 'images/'+thirdBestProvider.name+'.png'))
 
         fourthName = getLongNameOfStreamingPlatform(fourthBestProvider.name)
         fourthImdbScore = str(fourthBestProvider.calculatedImdbScore)
@@ -300,6 +303,7 @@ def index():
         fourthNumberOfShowScore = str(fourthBestProvider.calculatedNumberOfShowScore)
         fourthGenreScore = str(fourthBestProvider.calculatedGenreScore)
         fourthTotalScore = str(fourthBestProvider.totalScore)
+        fourthImage=str(url_for('static', filename= 'images/'+fourthBestProvider.name+'.png'))
 
         fifthName = getLongNameOfStreamingPlatform(fifthBestProvider.name)
         fifthImdbScore = str(fifthBestProvider.calculatedImdbScore)
@@ -308,6 +312,7 @@ def index():
         fifthNumberOfShowScore = str(fifthBestProvider.calculatedNumberOfShowScore)
         fifthGenreScore = str(fifthBestProvider.calculatedGenreScore)
         fifthTotalScore = str(fifthBestProvider.totalScore)
+        fifthImage=str(url_for('static', filename= 'images/'+fifthBestProvider.name+'.png'))
 
         return render_template('result.html',bestName=bestName,bestImdbScore=bestImdbScore,bestNumberOfContentScore=bestNumberOfContentScore,\
             bestNumberOfMovieScore=bestNumberOfMovieScore,\
@@ -323,7 +328,8 @@ def index():
             fourthNumberOfShowScore=fourthNumberOfShowScore,fourthTotalScore=fourthTotalScore,fourthGenreScore=fourthGenreScore,\
             fifthName=fifthName,fifthImdbScore=fifthImdbScore,\
             fifthNumberOfContentScore=fifthNumberOfContentScore,fifthNumberOfMovieScore=fifthNumberOfMovieScore,\
-            fifthNumberOfShowScore=fifthNumberOfShowScore,fifthTotalScore=fifthTotalScore,fifthGenreScore=fifthGenreScore)
+            fifthNumberOfShowScore=fifthNumberOfShowScore,fifthTotalScore=fifthTotalScore,fifthGenreScore=fifthGenreScore,\
+            firstImage=firstImage,secondImage=secondImage,thirdImage=thirdImage,fourthImage=fourthImage,fifthImage=fifthImage)
     else:
         if userLoggedIn:
             return render_template('query.html')
