@@ -46,6 +46,18 @@ def getSefaCalculatedGenreScore(longName):
     elif longName=='War and Military':
         return 1
 
+def getFinalResultMultiplier(platformName):
+    if platformName=='nfx':
+        return 0.19
+    elif platformName=='itu':
+        return 0.11
+    elif platformName=='dnp':
+        return 0.12
+    elif platformName=='prv':
+        return 0.11
+    elif platformName=='mbi':
+        return 0.47
+
 def getShortNameOfCategory(longName):
     if longName=='Action and Adventure':
         return 'act'
@@ -470,9 +482,9 @@ def fillDictionaryData():
         providerDictionary[provider] = generateStreamingService(provider)
 
 def calculateScoreForEachService(userInput:UserSelectionData):
-    firstCategoryScorePerContent = 3
-    secondCategoryScorePerContent = 2
-    thirdCategoryScorePerContent = 1
+    firstCategoryScorePerContent = .1
+    secondCategoryScorePerContent = .05
+    thirdCategoryScorePerContent = .025
     showScore = 1
     movieScore = 1
     imdbScore = 5
@@ -482,19 +494,20 @@ def calculateScoreForEachService(userInput:UserSelectionData):
         service = providerDictionary[provider]
         service.calculatedNumberOfContentScore = 0
         service.calculatedGenreScore = 0
-        service.calculatedImdbScore = int(service.imdbAverageScore*userInput.imdbWeight*imdbScore)
-        service.calculatedNumberOfContentScore += int(service.numberOfContentOnFirstCategory*firstCategoryScorePerContent)
-        service.calculatedNumberOfContentScore += int(service.numberOfContentOnSecondCategory*secondCategoryScorePerContent)
-        service.calculatedNumberOfContentScore += int(service.numberOfContentOnThirdCategory*thirdCategoryScorePerContent)
-        service.calculatedNumberOfMovieScore = int(service.numberOfMovies*userInput.movieImportance*movieScore)
-        service.calculatedNumberOfShowScore = int(service.numberOfShows*userInput.showImportance*showScore)
-        service.calculatedPriceScore = int(userInput.priceWeight*priceImportance/service.price)
+        service.calculatedImdbScore = int( service.imdbAverageScore * userInput.imdbWeight * imdbScore)
+        service.calculatedNumberOfContentScore += int(service.numberOfContentOnFirstCategory * firstCategoryScorePerContent)
+        service.calculatedNumberOfContentScore += int(service.numberOfContentOnSecondCategory * secondCategoryScorePerContent)
+        service.calculatedNumberOfContentScore += int(service.numberOfContentOnThirdCategory * thirdCategoryScorePerContent)
+        service.calculatedNumberOfMovieScore = int(service.numberOfMovies * userInput.movieImportance * movieScore)
+        service.calculatedNumberOfShowScore = int(service.numberOfShows * userInput.showImportance * showScore)
+        service.calculatedPriceScore = int(userInput.priceWeight * priceImportance / service.price)
 
-        service.calculatedGenreScore += int(service.numberOfContentOnFirstCategory*getSefaCalculatedGenreScore(userInput.topGenresList[0]))
-        service.calculatedGenreScore += int(service.numberOfContentOnSecondCategory*getSefaCalculatedGenreScore(userInput.topGenresList[1]))
-        service.calculatedGenreScore += int(service.numberOfContentOnThirdCategory*getSefaCalculatedGenreScore(userInput.topGenresList[2]))
+        service.calculatedGenreScore += int(service.numberOfContentOnFirstCategory * getSefaCalculatedGenreScore(userInput.topGenresList[0]))
+        service.calculatedGenreScore += int(service.numberOfContentOnSecondCategory * getSefaCalculatedGenreScore(userInput.topGenresList[1]))
+        service.calculatedGenreScore += int(service.numberOfContentOnThirdCategory * getSefaCalculatedGenreScore(userInput.topGenresList[2]))
 
         service.totalScore = service.calculatedGenreScore+service.calculatedImdbScore+service.calculatedNumberOfContentScore+service.calculatedNumberOfMovieScore+service.calculatedNumberOfShowScore+service.calculatedGenreScore        
+        service.totalScore *= getFinalResultMultiplier(service.name)
         providerDictionary[provider] = service
 
 if __name__ == "__main__":
