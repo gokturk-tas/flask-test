@@ -116,11 +116,22 @@ class StreamingService(object):
     calculatedNumberOfMovieScore = 0
     calculatedNumberOfShowScore=0
     calculatedGenreScore=0
+    calculatedPriceScore=0
 
 
 def generateStreamingService(name):
     service = StreamingService()
     service.name = name
+    if(name=='nfx'):
+        service.price = 45.99
+    elif(name=='mbi'):
+        service.price = 49.99
+    elif(name=='dnp'):
+        service.price = 64.99
+    elif(name=='prv'):
+        service.price = 7.90
+    elif(name=='itu'):
+        service.price = 34.99
     return service
 
 def getLongNameOfStreamingPlatform(shortName):
@@ -137,7 +148,7 @@ def getLongNameOfStreamingPlatform(shortName):
     elif shortName=='ply':
         return 'Google Play Store'
     elif shortName=='itu':
-        return 'iTunes'
+        return 'Apple TV'
     elif shortName=='ddi':
         return 'Dendy Direct'
     elif shortName=='crk':
@@ -275,6 +286,7 @@ def index():
         bestNumberOfMovieScore = str(bestProvider.calculatedNumberOfMovieScore)
         bestNumberOfShowScore = str(bestProvider.calculatedNumberOfShowScore)
         bestGenreScore = str(bestProvider.calculatedGenreScore)
+        bestPriceScore = str(bestProvider.calculatedPriceScore)
         bestTotalScore = str(bestProvider.totalScore)
         firstImage=str(url_for('static', filename= 'images/'+bestProvider.name+'.png'))
 
@@ -284,6 +296,7 @@ def index():
         secondNumberOfMovieScore = str(secondBestProvider.calculatedNumberOfMovieScore)
         secondNumberOfShowScore = str(secondBestProvider.calculatedNumberOfShowScore)
         secondGenreScore = str(secondBestProvider.calculatedGenreScore)
+        secondPriceScore = str(secondBestProvider.calculatedPriceScore)
         secondTotalScore = str(secondBestProvider.totalScore)
         secondImage=str(url_for('static', filename= 'images/'+secondBestProvider.name+'.png'))
 
@@ -293,6 +306,7 @@ def index():
         thirdNumberOfMovieScore = str(thirdBestProvider.calculatedNumberOfMovieScore)
         thirdNumberOfShowScore = str(thirdBestProvider.calculatedNumberOfShowScore)
         thirdGenreScore = str(thirdBestProvider.calculatedGenreScore)
+        thirdPriceScore = str(thirdBestProvider.calculatedPriceScore)
         thirdTotalScore = str(thirdBestProvider.totalScore)
         thirdImage=str(url_for('static', filename= 'images/'+thirdBestProvider.name+'.png'))
 
@@ -302,6 +316,7 @@ def index():
         fourthNumberOfMovieScore = str(fourthBestProvider.calculatedNumberOfMovieScore)
         fourthNumberOfShowScore = str(fourthBestProvider.calculatedNumberOfShowScore)
         fourthGenreScore = str(fourthBestProvider.calculatedGenreScore)
+        fourthPriceScore = str(fourthBestProvider.calculatedPriceScore)
         fourthTotalScore = str(fourthBestProvider.totalScore)
         fourthImage=str(url_for('static', filename= 'images/'+fourthBestProvider.name+'.png'))
 
@@ -311,6 +326,7 @@ def index():
         fifthNumberOfMovieScore = str(fifthBestProvider.calculatedNumberOfMovieScore)
         fifthNumberOfShowScore = str(fifthBestProvider.calculatedNumberOfShowScore)
         fifthGenreScore = str(fifthBestProvider.calculatedGenreScore)
+        fifthPriceScore = str(fifthBestProvider.calculatedPriceScore)
         fifthTotalScore = str(fifthBestProvider.totalScore)
         fifthImage=str(url_for('static', filename= 'images/'+fifthBestProvider.name+'.png'))
 
@@ -329,7 +345,9 @@ def index():
             fifthName=fifthName,fifthImdbScore=fifthImdbScore,\
             fifthNumberOfContentScore=fifthNumberOfContentScore,fifthNumberOfMovieScore=fifthNumberOfMovieScore,\
             fifthNumberOfShowScore=fifthNumberOfShowScore,fifthTotalScore=fifthTotalScore,fifthGenreScore=fifthGenreScore,\
-            firstImage=firstImage,secondImage=secondImage,thirdImage=thirdImage,fourthImage=fourthImage,fifthImage=fifthImage)
+            firstImage=firstImage,secondImage=secondImage,thirdImage=thirdImage,fourthImage=fourthImage,fifthImage=fifthImage,\
+            bestPriceScore=bestPriceScore,secondPriceScore=secondPriceScore,thirdPriceScore=thirdPriceScore,\
+            fourthPriceScore=fourthPriceScore,fifthPriceScore=fifthPriceScore)
     else:
         if userLoggedIn:
             return render_template('query.html')
@@ -458,6 +476,7 @@ def calculateScoreForEachService(userInput:UserSelectionData):
     showScore = 1
     movieScore = 1
     imdbScore = 5
+    priceImportance = 10000
 
     for provider in providersNameList:
         service = providerDictionary[provider]
@@ -469,12 +488,13 @@ def calculateScoreForEachService(userInput:UserSelectionData):
         service.calculatedNumberOfContentScore += int(service.numberOfContentOnThirdCategory*thirdCategoryScorePerContent)
         service.calculatedNumberOfMovieScore = int(service.numberOfMovies*userInput.movieImportance*movieScore)
         service.calculatedNumberOfShowScore = int(service.numberOfShows*userInput.showImportance*showScore)
+        service.calculatedPriceScore = int(userInput.priceWeight*priceImportance/service.price)
 
         service.calculatedGenreScore += int(service.numberOfContentOnFirstCategory*getSefaCalculatedGenreScore(userInput.topGenresList[0]))
         service.calculatedGenreScore += int(service.numberOfContentOnSecondCategory*getSefaCalculatedGenreScore(userInput.topGenresList[1]))
         service.calculatedGenreScore += int(service.numberOfContentOnThirdCategory*getSefaCalculatedGenreScore(userInput.topGenresList[2]))
 
-        service.totalScore = service.calculatedGenreScore+service.calculatedImdbScore+service.calculatedNumberOfContentScore+service.calculatedNumberOfMovieScore+service.calculatedNumberOfShowScore        
+        service.totalScore = service.calculatedGenreScore+service.calculatedImdbScore+service.calculatedNumberOfContentScore+service.calculatedNumberOfMovieScore+service.calculatedNumberOfShowScore+service.calculatedGenreScore        
         providerDictionary[provider] = service
 
 if __name__ == "__main__":
