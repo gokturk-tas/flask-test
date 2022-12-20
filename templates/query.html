@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>WatchTopia</title>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="slidecontainer">
+    <form action="/" method="post">
+        <!-- Dropdown 1 -->
+        <h1>Pick your top 3 favourite genres</h1>
+        <label for="dropdown1">1st Genre:</label>
+        <select name="dropdown1">
+        <option value="Action and Adventure">Action and Adventure</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Documentary">Documentary</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Horror">Horror</option>
+        <option value="Music and Musical">Music and Musical</option>
+        <option value="Romance">Romance</option>
+        <option value="Sport">Sport</option>
+        <option value="Western">Western</option>
+        <option value="Animation">Animation</option>
+        <option value="Crime">Crime</option>
+        <option value="Drama">Drama</option>
+        <option value="History">History</option>
+        <option value="Kids and Family">Kids and Family</option>
+        <option value="Mystery and Thriller">Mystery and Thriller</option>
+        <option value="Science-Fiction">Science-Fiction</option>
+        <option value="War and Military">War and Military</option>
+        </select>
+
+        <!-- Dropdown 2 -->
+        <label for="dropdown2">2nd Genre:</label>
+        <select name="dropdown2">
+            <option value="Action and Adventure">Action and Adventure</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Documentary">Documentary</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Horror">Horror</option>
+            <option value="Music and Musical">Music and Musical</option>
+            <option value="Romance">Romance</option>
+            <option value="Sport">Sport</option>
+            <option value="Western">Western</option>
+            <option value="Animation">Animation</option>
+            <option value="Crime">Crime</option>
+            <option value="Drama">Drama</option>
+            <option value="History">History</option>
+            <option value="Kids and Family">Kids and Family</option>
+            <option value="Mystery and Thriller">Mystery and Thriller</option>
+            <option value="Science-Fiction">Science-Fiction</option>
+            <option value="War and Military">War and Military</option>
+            </select>
+
+        <!-- Dropdown 3 -->
+        <label for="dropdown3">3rd Genre:</label>
+        <select name="dropdown3">
+            <option value="Action and Adventure">Action and Adventure</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Documentary">Documentary</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Horror">Horror</option>
+            <option value="Music and Musical">Music and Musical</option>
+            <option value="Romance">Romance</option>
+            <option value="Sport">Sport</option>
+            <option value="Western">Western</option>
+            <option value="Animation">Animation</option>
+            <option value="Crime">Crime</option>
+            <option value="Drama">Drama</option>
+            <option value="History">History</option>
+            <option value="Kids and Family">Kids and Family</option>
+            <option value="Mystery and Thriller">Mystery and Thriller</option>
+            <option value="Science-Fiction">Science-Fiction</option>
+            <option value="War and Military">War and Military</option>
+            </select>
+        
+        <br>
+        <h1>IMDB Score Importance</h1>
+        <input type="range" name="imdb" min="0" max="10" step="1" value="5">
+        <br>
+        <h1>Price Importance</h1>
+        <input type="range" name="price" min="0" max="10" step="1" value="5">
+        <br>
+        <h1>Content Amount Importance</h1>
+        <input type="range" name="content_amount" min="0" max="10" step="1" value="5">
+        <br>
+        <h1>Show Importance</h1>
+        <input type="range" name="show" min="0" max="10" step="1" value="5">
+        <br>
+        <h1>Movie Importance</h1>
+        <input type="range" name="movie" min="0" max="10" step="1" value="5">
+        <br>
+        <input type="submit" value="Recommend For Me!">
+      </form>
+    
+      <form action="/logout" method="POST">
+        <button type="submit" name="Logout">Logout</button>
+      </form>
+
+      <form action="/return" method="POST">
+        <button type="submit" name="Return">Return To Main Page</button>
+      </form>
+</div>
+
+
+{% endblock %}

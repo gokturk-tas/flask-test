@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>WatchTopia</title>
+{% endblock %}
+
+{% block body %}
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form action="/login" method="POST">
+        <label for="username">Username:</label><br>
+      <input type="text" id="username" name="username" required minlength="8"><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" required minlength="8"><br><br>
+        <button type="login" name="log">Login</button>
+    </form>
+
+
+    <form action="/return" method="POST">
+        <button type="submit" name="Return">Return To Main Page</button>
+      </form>
+  </body>
+{% endblock %}

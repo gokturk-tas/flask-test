@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>WatchTopia</title>
+{% endblock %}
+
+{% block body %}
+<body>
+      
+    <form action="/register" method="POST">
+        <label for="username">Username:</label><br>
+      <input type="text" id="username" name="username" required minlength="8"><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" required minlength="8"><br><br>
+      <button type="register" name="reg">Register</button>
+    </form>
+
+
+    <form action="/return" method="POST">
+        <button type="submit" name="Return">Return To Main Page</button>
+      </form>
+
+  </body>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+<title>WatchTopia</title>
+
+{% endblock %}
+
+{% block body %}
+
+ <h1>Platform Name  {{ bestName }}</h1>
+ <br>
+ <h2>IMDB Score {{ bestImdbScore }}</h2>
+ <br>
+ <h2>Content Amount Score {{ bestNumberOfContentScore }}</h2>
+ <br>
+ <h2>Number Of Movie Score {{ bestNumberOfMovieScore }}</h2>
+ <br>
+ <h2>Number Of Show Score {{ bestNumberOfShowScore }}</h2>
+ <br>
+ <h2> Total Score {{ bestTotalScore }}</h2>
+
+
+ <br>
+ <br>
+ <h1>Platform Name  {{ secondName }}</h1>
+ <br>
+ <h2>IMDB Score {{ secondImdbScore }}</h2>
+ <br>
+ <h2>Content Amount Score {{ secondNumberOfContentScore }}</h2>
+ <br>
+ <h2>Number Of Movie Score {{ secondNumberOfMovieScore }}</h2>
+ <br>
+ <h2>Number Of Show Score {{ secondNumberOfShowScore }}</h2>
+ <br>
+ <h2>Total Score {{ secondTotalScore }}</h2>
+    
+ <form action="/return" method="POST">
+   <button type="submit" name="Return">Return To Main Page</button>
+ </form>
+
+ <form action="/logout" method="POST">
+    <button type="submit" name="Logout">Logout</button>
+  </form>
+
+ {% endblock %}
