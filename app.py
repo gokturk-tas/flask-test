@@ -254,14 +254,19 @@ def index():
         userData = fillUserInputDataToSystem(request)
         startApiService(userData)
         calculateScoreForEachService(userData)
-        returnValue = ''
         bestProvider = generateStreamingService('test')
         secondBestProvider = generateStreamingService('test2')
-        for provider in providersNameList:
-            if providerDictionary[provider].totalScore>bestProvider.totalScore:
-                bestProvider = providerDictionary[provider]
-            elif providerDictionary[provider].totalScore>secondBestProvider.totalScore:
-                secondBestProvider = providerDictionary[provider]
+        thirdBestProvider = generateStreamingService('test3')
+        fourthBestProvider = generateStreamingService('test4')
+        fifthBestProvider = generateStreamingService('test5')
+
+        prov_lst = list(providerDictionary.items())
+        prov_lst.sort(key=lambda x: x[1].totalScore)
+        bestProvider = prov_lst[0][1]
+        secondBestProvider = prov_lst[1][1]
+        thirdBestProvider = prov_lst[2][1]
+        fourthBestProvider = prov_lst[3][1]
+        fifthBestProvider = prov_lst[4][1]
 
             
         bestName = getLongNameOfStreamingPlatform(bestProvider.name)
@@ -280,12 +285,45 @@ def index():
         secondGenreScore = str(secondBestProvider.calculatedGenreScore)
         secondTotalScore = str(secondBestProvider.totalScore)
 
+        thirdName = getLongNameOfStreamingPlatform(thirdBestProvider.name)
+        thirdImdbScore = str(thirdBestProvider.calculatedImdbScore)
+        thirdNumberOfContentScore = str(thirdBestProvider.calculatedNumberOfContentScore)
+        thirdNumberOfMovieScore = str(thirdBestProvider.calculatedNumberOfMovieScore)
+        thirdNumberOfShowScore = str(thirdBestProvider.calculatedNumberOfShowScore)
+        thirdGenreScore = str(thirdBestProvider.calculatedGenreScore)
+        thirdTotalScore = str(thirdBestProvider.totalScore)
+
+        fourthName = getLongNameOfStreamingPlatform(fourthBestProvider.name)
+        fourthImdbScore = str(fourthBestProvider.calculatedImdbScore)
+        fourthNumberOfContentScore = str(fourthBestProvider.calculatedNumberOfContentScore)
+        fourthNumberOfMovieScore = str(fourthBestProvider.calculatedNumberOfMovieScore)
+        fourthNumberOfShowScore = str(fourthBestProvider.calculatedNumberOfShowScore)
+        fourthGenreScore = str(fourthBestProvider.calculatedGenreScore)
+        fourthTotalScore = str(fourthBestProvider.totalScore)
+
+        fifthName = getLongNameOfStreamingPlatform(fifthBestProvider.name)
+        fifthImdbScore = str(fifthBestProvider.calculatedImdbScore)
+        fifthNumberOfContentScore = str(fifthBestProvider.calculatedNumberOfContentScore)
+        fifthNumberOfMovieScore = str(fifthBestProvider.calculatedNumberOfMovieScore)
+        fifthNumberOfShowScore = str(fifthBestProvider.calculatedNumberOfShowScore)
+        fifthGenreScore = str(fifthBestProvider.calculatedGenreScore)
+        fifthTotalScore = str(fifthBestProvider.totalScore)
+
         return render_template('result.html',bestName=bestName,bestImdbScore=bestImdbScore,bestNumberOfContentScore=bestNumberOfContentScore,\
             bestNumberOfMovieScore=bestNumberOfMovieScore,\
             bestNumberOfShowScore=bestNumberOfShowScore,bestTotalScore=bestTotalScore,bestGenreScore=bestGenreScore,\
             secondName=secondName,secondImdbScore=secondImdbScore,\
             secondNumberOfContentScore=secondNumberOfContentScore,secondNumberOfMovieScore=secondNumberOfMovieScore,\
-            secondNumberOfShowScore=secondNumberOfShowScore,secondTotalScore=secondTotalScore,secondGenreScore=secondGenreScore)
+            secondNumberOfShowScore=secondNumberOfShowScore,secondTotalScore=secondTotalScore,secondGenreScore=secondGenreScore,\
+            thirdName=thirdName,thirdImdbScore=thirdImdbScore,thirdNumberOfContentScore=thirdNumberOfContentScore,\
+            thirdNumberOfMovieScore=thirdNumberOfMovieScore,\
+            thirdNumberOfShowScore=thirdNumberOfShowScore,thirdTotalScore=thirdTotalScore,thirdGenreScore=thirdGenreScore,\
+            fourthName=fourthName,fourthImdbScore=fourthImdbScore,\
+            fourthNumberOfContentScore=fourthNumberOfContentScore,fourthNumberOfMovieScore=fourthNumberOfMovieScore,\
+            fourthNumberOfShowScore=fourthNumberOfShowScore,fourthTotalScore=fourthTotalScore,fourthGenreScore=fourthGenreScore,\
+            fifthName=fifthName,fifthImdbScore=fifthImdbScore,\
+            fifthNumberOfContentScore=fifthNumberOfContentScore,fifthNumberOfMovieScore=fifthNumberOfMovieScore,\
+            fifthNumberOfShowScore=fifthNumberOfShowScore,fifthTotalScore=fifthTotalScore,fifthGenreScore=fifthGenreScore)
     else:
         if userLoggedIn:
             return render_template('query.html')
@@ -388,6 +426,7 @@ def gotoregister():
 
 def startApiService(userData:UserSelectionData):
     for provider in providersNameList:
+       
         totalContentCountList = getTotalContentCount(userData,providerDictionary[provider])
         showMovieCount = getNumberOfShowAndMovie(userData, providerDictionary[provider])
         averageImdbScoreOfContent = getAverageImbdbScoreOfContent(userData,providerDictionary[provider])
@@ -416,7 +455,8 @@ def calculateScoreForEachService(userInput:UserSelectionData):
 
     for provider in providersNameList:
         service = providerDictionary[provider]
-
+        service.calculatedNumberOfContentScore = 0
+        service.calculatedGenreScore = 0
         service.calculatedImdbScore = int(service.imdbAverageScore*userInput.imdbWeight*imdbScore)
         service.calculatedNumberOfContentScore += int(service.numberOfContentOnFirstCategory*firstCategoryScorePerContent)
         service.calculatedNumberOfContentScore += int(service.numberOfContentOnSecondCategory*secondCategoryScorePerContent)

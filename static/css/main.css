@@ -16,6 +16,10 @@
 .quer-b{
   background-image: url("../images/quer.jpg");
 }
+.result-b{
+  background-image: url("../images/result.jpg");
+  background-size: cover;
+}
 .main-h{
     display: inline-block;
     text-align: center;
@@ -266,6 +270,7 @@ select{
   margin-left: 400px;
   width: 50%;
   float: left;
+  margin-top: 30px;
 }
 .drop-label{
   font-size: 1.2em;
@@ -275,10 +280,9 @@ select{
   display: inline-block;
 }
 .drop-div{
-  display: inline;
+  display: inline-block;
   position: relative;
   width: 50%;
-  float: right;
   margin-top: 22px;
 }
 option{
@@ -336,12 +340,81 @@ h2{
 .reco{
   background-color: #04AA6D;
   border: none;
-  color: white;
-  padding: 20px;
+  color: rgb(16, 29, 18);
+  font-weight: 500;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   border-radius: 50%;
+  height: 105px;
+  width: 105px;
+  padding: 3px;
+  background-color: #bebe1e;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 15px #999;
+  display: grid;
+  margin: auto;
+}
+.reco:hover {
+  background-color: #938e00;
+  cursor: pointer;
+
+}
+.reco:active {
+  background-color: #575e00;
+  box-shadow: 0 15px #666;
+  transform: translateY(8px);
+  color: white;
+}
+.muc{
+  height: 120px;
+}
+.quer-but{
+  display: grid;
+  margin-left: 260px;
+}
+.res-div{
+  width: 960px;
+  display: inline-block;
+}
+.res1{
+  width: 300px;
+  height: 450px;
+  background-color: white;
+  border-radius: 10px;
+  display: inline-block;  
+}
+.res2{
+  width: 300px;
+  height: 450px;
+  background-color: white;
+  border-radius: 10px;
+  display: inline;
+}
+.res3{
+  width: 300px;
+  height: 450px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  float: right;
+}
+.res4{
+  width: 250px;
+  height: 450px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  float: right;
+}
+.res5{
+  width: 250px;
+  height: 450px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  float: right;
 }
