@@ -273,11 +273,11 @@ def index():
 
         prov_lst = list(providerDictionary.items())
         prov_lst.sort(key=lambda x: x[1].totalScore)
-        bestProvider = prov_lst[0][1]
-        secondBestProvider = prov_lst[1][1]
+        bestProvider = prov_lst[4][1]
+        secondBestProvider = prov_lst[3][1]
         thirdBestProvider = prov_lst[2][1]
-        fourthBestProvider = prov_lst[3][1]
-        fifthBestProvider = prov_lst[4][1]
+        fourthBestProvider = prov_lst[1][1]
+        fifthBestProvider = prov_lst[0][1]
 
             
         bestName = getLongNameOfStreamingPlatform(bestProvider.name)
