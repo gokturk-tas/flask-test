@@ -1,9 +1,169 @@
-body, html {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+.main-b {
     margin: 0;
-    font-family: sans-serif;
-    background-color: lightblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url("../images/body.jpg");
+       
 }
-
+.logon-b{
+  background-image: url("../images/login.jpg");
+  background-size: cover;
+}
+.reg-b{
+  background-image: url("../images/reg.jpg");
+  background-size:cover;
+}
+.quer-b{
+  background-image: url("../images/quer.jpg");
+}
+.main-h{
+    display: inline-block;
+    text-align: center;
+    margin-left: 30%;
+    margin-top: 60px;
+    color: white;
+    font-family: 'segoe ui';
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.quer-h{
+  text-align: center;
+  color: rgb(18, 55, 10);
+}
+.main-p{
+    color: #fff;
+    width: 450px;
+    margin-left: 10%;
+    margin-top: 60px;
+}
+.main-div{
+    background-color: #000000ad;
+    width: 600px;
+    height: 500px;
+    margin-top: 70px;
+    margin-left: 120px;
+    border-radius: 50%;
+}
+button{
+    display: grid;
+    padding: 10px 15px;
+    margin: auto;
+    margin-top: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #212517;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    
+}
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0px;
+    font-family: 'segoe ui';
+  }
+  
+  .nav {
+    height: 50px;
+    width: 100%;
+    background-color: #000000;
+    position: relative;
+  }
+  
+  .nav > .nav-header {
+    display: inline;
+  }
+  
+  .nav > .nav-header > .nav-title {
+    display: inline-block;
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    padding: 10px 10px 10px 10px;
+  }
+  
+  .nav > .nav-btn {
+    display: none;
+  }
+  
+  .nav > .nav-links {
+    display: inline;
+    float: right;
+    font-size: 18px;
+  }
+  
+  .nav > .nav-links > a {
+    display: inline-block;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: #ffffff;
+  }
+  
+  .nav > .nav-links > a:hover {
+    background-color: #374709;
+  }
+  
+  .nav > #nav-check {
+    display: none;
+  }
+  
+  @media (max-width:600px) {
+    .nav > .nav-btn {
+      display: inline-block;
+      position: absolute;
+      right: 0px;
+      top: 0px;
+    }
+    .nav > .nav-btn > label {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      padding: 13px;
+    }
+    .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    .nav > .nav-btn > label > span {
+      display: block;
+      width: 25px;
+      height: 10px;
+      border-top: 2px solid #eee;
+    }
+    .nav > .nav-links {
+      position: absolute;
+      display: block;
+      width: 100%;
+      background-color: #333;
+      height: 0px;
+      transition: all 0.3s ease-in;
+      overflow-y: hidden;
+      top: 50px;
+      left: 0px;
+    }
+    .nav > .nav-links > a {
+      display: block;
+      width: 100%;
+    }
+    .nav > #nav-check:not(:checked) ~ .nav-links {
+      height: 0px;
+    }
+    .nav > #nav-check:checked ~ .nav-links {
+      height: calc(100vh - 50px);
+      overflow-y: auto;
+    }
+}  
+button:hover {background-color: #3e8e41}
+  
+button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
 .content {
     margin: 0 auto;
     width: 400px;
@@ -33,4 +193,148 @@ td {
 
 #content {
     width: 70%;
+}
+.reg-div{
+  display: inline-block;
+}
+.login-form, .reg-form{
+  height: 520px;
+  width: 400px;
+  background-color: rgba(0, 0, 0, 0.51);
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 50px 35px;
+  font-family: 'Poppins',sans-serif;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
+  display: grid;
+  margin: auto;
+
+}
+.log-2, .reg-2{
+  margin-top: 40px;
+  font-size: 25px;
+  
+}
+.log-label, .reg-label{
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.log-input, .reg-input{
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(5, 51, 11, 0.133);
+  border-radius: 3px;
+  padding: 0 10px;
+  color: rgb(179, 179, 179);
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+}
+::placeholder{
+  color: #ffffff;
+}
+select{
+  background-color: #212517;
+  color: rgb(191, 191, 191);
+  font-size: 0.9em;
+  display: inline-block;
+  padding: 4px;
+}
+.opt{
+  margin-top: 10px;
+}
+.slidecontainer{
+  width: 800px;
+  background-color: #3e8e418f;
+  display: grid;
+  backdrop-filter: blur(40px);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(8,7,16,0.6);
+  padding: 10px;
+  margin-left: 400px;
+  width: 50%;
+  float: left;
+}
+.drop-label{
+  font-size: 1.2em;
+  font-weight: 4500;
+  color:#eee;
+  padding: 15px;
+  display: inline-block;
+}
+.drop-div{
+  display: inline;
+  position: relative;
+  width: 50%;
+  float: right;
+  margin-top: 22px;
+}
+option{
+  padding: 10px;
+}
+.range-div{
+  display: inline;
+  position: relative;
+  float: left;
+}
+
+h2{
+  border: solid 0.1px #022200;
+  padding: 3px ;
+  border-radius: 5px;
+  background-color: #2125176a;
+  box-shadow: 0 0 4px rgba(8,7,16,0.6);
+  color: #eee;
+  font-weight: 500;
+  margin-bottom: -2px;
+}
+.reg-log{
+  font-size: 0.7em !important;
+  margin-top: 40px !important;
+}
+#rangeValue {
+  position: relative;
+  display: inline-block;
+  text-align: right;
+  font-size: 2em;
+  color: rgb(255, 255, 255);
+  font-weight: 400;
+  margin-left: 15px;
+}
+.range {
+  width: 250px;
+  height: 15px;
+  -webkit-appearance: none;
+  background: rgb(255, 255, 255);
+  outline: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgb(3, 41, 10);
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  cursor: pointer;
+  border: 4px solid #333;
+  box-shadow: -407px 0 0 400px #006d04;
+}
+.reco{
+  border-radius: 50%;
+  padding: 20%;
+  size: 1em;
 }

@@ -5,20 +5,44 @@
 {% endblock %}
 
 {% block body %}
-<body>
-      
-    <form action="/register" method="POST">
-        <label for="username">Username:</label><br>
-      <input type="text" id="username" name="username" required minlength="8"><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password" required minlength="8"><br><br>
-      <button type="register" name="reg">Register</button>
-    </form>
-
+<body class="reg-b">
+  <div class="nav">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+      <div class="nav-title">
+        WatchTopia
+      </div>
+    </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+    
+    <div class="nav-links">
+      <a href="{{ url_for('hrefhome') }}">Home</a>
+      <a href="{{ url_for('hrefaboutus') }}">About Us</a>
+      <a href="{{ url_for('hreftool') }}">Tool</a>
+      <a href="{{ url_for('hrefplatforms') }}">Platforms</a>
+      <a href="{{ url_for('hrefcontact') }}">Contact Us</a>
+    </div>
+    </div><div>    
+    <div class="reg-div"> 
+      <form class="reg-form" action="/register" method="POST">
+        <label class="reg-label" placeholder="Username"for="username">Username:</label><br>
+        <input class="reg-input" type="text" id="username" name="username" required minlength="8"><br>
+        <label class="reg-label" placeholder="Password" for="password">Password:</label><br>
+        <input class="reg-input" type="password" id="password" name="password" required minlength="8"><br><br>
+        <button class="reg-2" class="reg-input" type="register" name="reg">Register</button>
+      </form>
+    </div>
+  
 
     <form action="/return" method="POST">
-        <button type="submit" name="Return">Return To Main Page</button>
-      </form>
-
-  </body>
+      <button type="submit" name="Return">Return To Main Page</button>
+    </form>
+  </div>
+</body>
 {% endblock %}

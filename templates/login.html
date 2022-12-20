@@ -5,7 +5,30 @@
 {% endblock %}
 
 {% block body %}
-<body>
+<body class="logon-b">
+  <div class="nav">
+    <input type="checkbox" id="nav-check">
+    <div class="nav-header">
+      <div class="nav-title">
+        WatchTopia
+      </div>
+    </div>
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+    
+    <div class="nav-links">
+      <a href="{{ url_for('hrefhome') }}">Home</a>
+    <a href="{{ url_for('hrefaboutus') }}">About Us</a>
+    <a href="{{ url_for('hreftool') }}">Tool</a>
+    <a href="{{ url_for('hrefplatforms') }}">Platforms</a>
+    <a href="{{ url_for('hrefcontact') }}">Contact Us</a>
+    </div>
+  </div>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul>
@@ -15,17 +38,17 @@
         </ul>
       {% endif %}
     {% endwith %}
-    <form action="/login" method="POST">
-        <label for="username">Username:</label><br>
-      <input type="text" id="username" name="username" required minlength="8"><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password" required minlength="8"><br><br>
-        <button type="login" name="log">Login</button>
-    </form>
-
-
-    <form action="/return" method="POST">
-        <button type="submit" name="Return">Return To Main Page</button>
+   <div> 
+    <form class="login-form" action="/login" method="POST">
+        <label class="log-label" for="username">Username:</label><br>
+      <input class="input-label" placeholder="Username" type="text" id="username" name="username" required minlength="8"><br>
+      <label class="log-label" for="password">Password:</label><br>
+      <input class="input-label" placeholder="Password" type="password" id="password" name="password" required minlength="8"><br><br>
+      <button class="log-2" type="login" name="log">Login</button>
+      <form action="/gotoregister" method="POST">
+        <button class="reg-log" type="submit" name="Register">Register</button>
       </form>
-  </body>
+  </div>
+
+    </body>
 {% endblock %}

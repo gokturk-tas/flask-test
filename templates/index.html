@@ -1,20 +1,53 @@
 {% extends 'base.html' %}
 
 
-
 {% block head %}
 <title>WatchTopia</title>
 {% endblock %}
 
 {% block body %}
-<form action="/gotologin" method="POST">
+<body class="main-b">
+<div class="nav">
+  <input type="checkbox" id="nav-check">
+  <div class="nav-header">
+    <div class="nav-title">
+      WatchTopia
+    </div>
+  </div>
+  <div class="nav-btn">
+    <label for="nav-check">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+  
+  <div class="nav-links">
+    <a href="{{ url_for('hrefhome') }}">Home</a>
+    <a href="{{ url_for('hrefaboutus') }}">About Us</a>
+    <a href="{{ url_for('hreftool') }}">Tool</a>
+    <a href="{{ url_for('hrefplatforms') }}">Platforms</a>
+    <a href="{{ url_for('hrefcontact') }}">Contact Us</a>
+  </div>
+</div>
+<div class= "main-div">  
+  <h1 class="main-h">
+    Choose Wisely!
+  </h1>
+  <p class="main-p">
+    If you want to watch movies and TV shows but you don't know where to watch, then you're in the right place.
+    Watchtopia cares about you and your preferences. We recommend you the best option among many digital 
+    streaming platforms based on your preferences. 
+  </p>
+  <form action="/gotologin" method="POST">
     <button type="submit" name="Login">Login</button>
   </form>
 
   <form action="/gotoregister" method="POST">
     <button type="submit" name="Register">Register</button>
   </form>
-
-
+</div>
+</body>
 {% endblock %}
+
 

@@ -10,6 +10,42 @@ passWordDictonary = []
 userLoggedIn = False
 finalResult = ''
 
+def getSefaCalculatedGenreScore(longName):
+    if longName=='Action and Adventure':
+        return 7
+    elif longName=='Comedy':
+        return 12
+    elif longName=='Documentary':
+        return 10
+    elif longName=='Fantasy':
+        return 5
+    elif longName=='Horror':
+        return 4
+    elif longName=='Music and Musical':
+        return 3
+    elif longName=='Romance':
+        return 7
+    elif longName=='Sport':
+        return 1
+    elif longName=='Western':
+        return 1
+    elif longName=='Animation':
+        return 3
+    elif longName=='Crime':
+        return 5
+    elif longName=='Drama':
+        return 2
+    elif longName=='History':
+        return 2
+    elif longName=='Kids and Family':
+        return 6
+    elif longName=='Mystery and Thriller':
+        return 9
+    elif longName=='Science-Fiction':
+        return 3
+    elif longName=='War and Military':
+        return 1
+
 def getShortNameOfCategory(longName):
     if longName=='Action and Adventure':
         return 'act'
@@ -227,6 +263,7 @@ def index():
             elif providerDictionary[provider].totalScore>secondBestProvider.totalScore:
                 secondBestProvider = providerDictionary[provider]
 
+            
         bestName = getLongNameOfStreamingPlatform(bestProvider.name)
         bestImdbScore = str(bestProvider.calculatedImdbScore)
         bestNumberOfContentScore = str(bestProvider.calculatedNumberOfContentScore)
@@ -234,7 +271,7 @@ def index():
         bestNumberOfShowScore = str(bestProvider.calculatedNumberOfShowScore)
         bestGenreScore = str(bestProvider.calculatedGenreScore)
         bestTotalScore = str(bestProvider.totalScore)
-
+        
         secondName = getLongNameOfStreamingPlatform(secondBestProvider.name)
         secondImdbScore = str(secondBestProvider.calculatedImdbScore)
         secondNumberOfContentScore = str(secondBestProvider.calculatedNumberOfContentScore)
@@ -246,15 +283,14 @@ def index():
         return render_template('result.html',bestName=bestName,bestImdbScore=bestImdbScore,bestNumberOfContentScore=bestNumberOfContentScore,\
             bestNumberOfMovieScore=bestNumberOfMovieScore,\
             bestNumberOfShowScore=bestNumberOfShowScore,bestTotalScore=bestTotalScore,bestGenreScore=bestGenreScore,\
-                secondName=secondName,secondImdbScore=secondImdbScore,\
-                secondNumberOfContentScore=secondNumberOfContentScore,secondNumberOfMovieScore=secondNumberOfMovieScore,\
-                    secondNumberOfShowScore=secondNumberOfShowScore,secondTotalScore=secondTotalScore,secondGenreScore=secondGenreScore)
+            secondName=secondName,secondImdbScore=secondImdbScore,\
+            secondNumberOfContentScore=secondNumberOfContentScore,secondNumberOfMovieScore=secondNumberOfMovieScore,\
+            secondNumberOfShowScore=secondNumberOfShowScore,secondTotalScore=secondTotalScore,secondGenreScore=secondGenreScore)
     else:
         if userLoggedIn:
             return render_template('query.html')
         else:
             return render_template('index.html')
-
 
 
 
@@ -297,11 +333,10 @@ def registerToMainPage():
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    if request.method == 'POST':
-        global userLoggedIn
-        global finalResult
-        userLoggedIn = False
-        return render_template('login.html')
+    global userLoggedIn
+    global finalResult
+    userLoggedIn = False
+    return render_template('login.html')
 
 @app.route('/gotologin', methods=['GET', 'POST'])
 def gotologin():
@@ -312,6 +347,33 @@ def gotologin():
             return render_template('query.html')
         else:
             return render_template('login.html')
+
+@app.route('/hreflogout', methods=['GET', 'POST'])
+def hreflogout():
+    logout()
+
+@app.route('/hrefhome', methods=['GET', 'POST'])
+def hrefhome():
+    return render_template('index.html')
+
+@app.route('/hrefaboutus', methods=['GET', 'POST'])
+def hrefaboutus():
+    return render_template('aboutus.html')
+
+@app.route('/hreftool', methods=['GET', 'POST'])
+def hreftool():
+    if(userLoggedIn):
+        return render_template('query.html')
+    else:
+        return render_template('index.html')
+
+@app.route('/hrefplatforms', methods=['GET', 'POST'])
+def hrefplatforms():
+    return render_template('hrefplatforms.html')
+
+@app.route('/hrefcontact', methods=['GET', 'POST'])
+def hrefcontact():
+    return render_template('contactus.html')
 
 @app.route('/gotoregister', methods=['GET', 'POST'])
 def gotoregister():
@@ -344,42 +406,6 @@ def fillDictionaryData():
     for provider in providersNameList:
         providerDictionary[provider] = generateStreamingService(provider)
 
-def getSefaCalculatedGenreScore(longName):
-    if longName=='Action and Adventure':
-        return 7
-    elif longName=='Comedy':
-        return 12
-    elif longName=='Documentary':
-        return 10
-    elif longName=='Fantasy':
-        return 5
-    elif longName=='Horror':
-        return 4
-    elif longName=='Music and Musical':
-        return 3
-    elif longName=='Romance':
-        return 7
-    elif longName=='Sport':
-        return 1
-    elif longName=='Western':
-        return 1
-    elif longName=='Animation':
-        return 3
-    elif longName=='Crime':
-        return 5
-    elif longName=='Drama':
-        return 2
-    elif longName=='History':
-        return 2
-    elif longName=='Kids and Family':
-        return 6
-    elif longName=='Mystery and Thriller':
-        return 9
-    elif longName=='Science-Fiction':
-        return 3
-    elif longName=='War and Military':
-        return 1
-
 def calculateScoreForEachService(userInput:UserSelectionData):
     firstCategoryScorePerContent = 3
     secondCategoryScorePerContent = 2
@@ -402,7 +428,7 @@ def calculateScoreForEachService(userInput:UserSelectionData):
         service.calculatedGenreScore += int(service.numberOfContentOnSecondCategory*getSefaCalculatedGenreScore(userInput.topGenresList[1]))
         service.calculatedGenreScore += int(service.numberOfContentOnThirdCategory*getSefaCalculatedGenreScore(userInput.topGenresList[2]))
 
-        service.totalScore = service.calculatedGenreScore+service.calculatedImdbScore+service.calculatedNumberOfContentScore+service.calculatedNumberOfMovieScore+service.calculatedNumberOfShowScore
+        service.totalScore = service.calculatedGenreScore+service.calculatedImdbScore+service.calculatedNumberOfContentScore+service.calculatedNumberOfMovieScore+service.calculatedNumberOfShowScore        
         providerDictionary[provider] = service
 
 if __name__ == "__main__":
