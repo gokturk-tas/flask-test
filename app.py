@@ -79,6 +79,7 @@ class StreamingService(object):
     calculatedNumberOfContentScore = 0
     calculatedNumberOfMovieScore = 0
     calculatedNumberOfShowScore=0
+    calculatedGenreScore=0
 
 
 def generateStreamingService(name):
@@ -226,18 +227,12 @@ def index():
             elif providerDictionary[provider].totalScore>secondBestProvider.totalScore:
                 secondBestProvider = providerDictionary[provider]
 
-            returnValue += provider + '-'
-            returnValue += str(providerDictionary[provider].calculatedImdbScore) + 'calculatedImdbScore-'
-            returnValue += str(providerDictionary[provider].calculatedNumberOfContentScore) + 'calculatedNumberOfContentScore-'
-            returnValue += str(providerDictionary[provider].calculatedNumberOfMovieScore) + 'calculatedNumberOfMovieScore-'
-            returnValue += str(providerDictionary[provider].calculatedNumberOfShowScore) + 'calculatedNumberOfShowScore-'
-            returnValue += str(providerDictionary[provider].totalScore) + 'totalScore-'
-            
         bestName = getLongNameOfStreamingPlatform(bestProvider.name)
         bestImdbScore = str(bestProvider.calculatedImdbScore)
         bestNumberOfContentScore = str(bestProvider.calculatedNumberOfContentScore)
         bestNumberOfMovieScore = str(bestProvider.calculatedNumberOfMovieScore)
         bestNumberOfShowScore = str(bestProvider.calculatedNumberOfShowScore)
+        bestGenreScore = str(bestProvider.calculatedGenreScore)
         bestTotalScore = str(bestProvider.totalScore)
 
         secondName = getLongNameOfStreamingPlatform(secondBestProvider.name)
@@ -245,12 +240,15 @@ def index():
         secondNumberOfContentScore = str(secondBestProvider.calculatedNumberOfContentScore)
         secondNumberOfMovieScore = str(secondBestProvider.calculatedNumberOfMovieScore)
         secondNumberOfShowScore = str(secondBestProvider.calculatedNumberOfShowScore)
+        secondGenreScore = str(secondBestProvider.calculatedGenreScore)
         secondTotalScore = str(secondBestProvider.totalScore)
 
-        return render_template('result.html',bestName=bestName,bestImdbScore=bestImdbScore,bestNumberOfContentScore=bestNumberOfContentScore,bestNumberOfMovieScore=bestNumberOfMovieScore,\
-            bestNumberOfShowScore=bestNumberOfShowScore,bestTotalScore=bestTotalScore,secondName=secondName,secondImdbScore=secondImdbScore,\
+        return render_template('result.html',bestName=bestName,bestImdbScore=bestImdbScore,bestNumberOfContentScore=bestNumberOfContentScore,\
+            bestNumberOfMovieScore=bestNumberOfMovieScore,\
+            bestNumberOfShowScore=bestNumberOfShowScore,bestTotalScore=bestTotalScore,bestGenreScore=bestGenreScore,\
+                secondName=secondName,secondImdbScore=secondImdbScore,\
                 secondNumberOfContentScore=secondNumberOfContentScore,secondNumberOfMovieScore=secondNumberOfMovieScore,\
-                    secondNumberOfShowScore=secondNumberOfShowScore,secondTotalScore=secondTotalScore)
+                    secondNumberOfShowScore=secondNumberOfShowScore,secondTotalScore=secondTotalScore,secondGenreScore=secondGenreScore)
     else:
         if userLoggedIn:
             return render_template('query.html')
@@ -346,6 +344,42 @@ def fillDictionaryData():
     for provider in providersNameList:
         providerDictionary[provider] = generateStreamingService(provider)
 
+def getSefaCalculatedGenreScore(longName):
+    if longName=='Action and Adventure':
+        return 7
+    elif longName=='Comedy':
+        return 12
+    elif longName=='Documentary':
+        return 10
+    elif longName=='Fantasy':
+        return 5
+    elif longName=='Horror':
+        return 4
+    elif longName=='Music and Musical':
+        return 3
+    elif longName=='Romance':
+        return 7
+    elif longName=='Sport':
+        return 1
+    elif longName=='Western':
+        return 1
+    elif longName=='Animation':
+        return 3
+    elif longName=='Crime':
+        return 5
+    elif longName=='Drama':
+        return 2
+    elif longName=='History':
+        return 2
+    elif longName=='Kids and Family':
+        return 6
+    elif longName=='Mystery and Thriller':
+        return 9
+    elif longName=='Science-Fiction':
+        return 3
+    elif longName=='War and Military':
+        return 1
+
 def calculateScoreForEachService(userInput:UserSelectionData):
     firstCategoryScorePerContent = 3
     secondCategoryScorePerContent = 2
@@ -360,11 +394,15 @@ def calculateScoreForEachService(userInput:UserSelectionData):
         service.calculatedImdbScore = int(service.imdbAverageScore*userInput.imdbWeight*imdbScore)
         service.calculatedNumberOfContentScore += int(service.numberOfContentOnFirstCategory*firstCategoryScorePerContent)
         service.calculatedNumberOfContentScore += int(service.numberOfContentOnSecondCategory*secondCategoryScorePerContent)
-        service.calculatedNumberOfContentScore += int(service.numberOfContentOnSecondCategory*thirdCategoryScorePerContent)
+        service.calculatedNumberOfContentScore += int(service.numberOfContentOnThirdCategory*thirdCategoryScorePerContent)
         service.calculatedNumberOfMovieScore = int(service.numberOfMovies*userInput.movieImportance*movieScore)
         service.calculatedNumberOfShowScore = int(service.numberOfShows*userInput.showImportance*showScore)
 
-        service.totalScore = service.calculatedImdbScore+service.calculatedNumberOfContentScore+service.calculatedNumberOfMovieScore+service.calculatedNumberOfShowScore
+        service.calculatedGenreScore += int(service.numberOfContentOnFirstCategory*getSefaCalculatedGenreScore(userInput.topGenresList[0]))
+        service.calculatedGenreScore += int(service.numberOfContentOnSecondCategory*getSefaCalculatedGenreScore(userInput.topGenresList[1]))
+        service.calculatedGenreScore += int(service.numberOfContentOnThirdCategory*getSefaCalculatedGenreScore(userInput.topGenresList[2]))
+
+        service.totalScore = service.calculatedGenreScore+service.calculatedImdbScore+service.calculatedNumberOfContentScore+service.calculatedNumberOfMovieScore+service.calculatedNumberOfShowScore
         providerDictionary[provider] = service
 
 if __name__ == "__main__":
